@@ -1,0 +1,617 @@
+export interface Exercise {
+  id: string
+  name: string
+  muscleGroup: string
+  equipment: string
+  description: string
+  image?: string
+}
+
+export const muscleGroups = [
+  'Chest',
+  'Back',
+  'Shoulders',
+  'Biceps',
+  'Triceps',
+  'Legs',
+  'Glutes',
+  'Core',
+  'Full Body',
+] as const
+
+export type MuscleGroup = (typeof muscleGroups)[number]
+
+export const exercises: Exercise[] = [
+  // CHEST
+  {
+    id: 'bench-press',
+    name: 'Bench Press',
+    muscleGroup: 'Chest',
+    equipment: 'Barbell',
+    description: 'Lie on a flat bench, grip the barbell slightly wider than shoulder-width, lower to chest and press up.',
+  },
+  {
+    id: 'incline-bench-press',
+    name: 'Incline Bench Press',
+    muscleGroup: 'Chest',
+    equipment: 'Barbell',
+    description: 'Performed on an incline bench to target the upper chest.',
+  },
+  {
+    id: 'decline-bench-press',
+    name: 'Decline Bench Press',
+    muscleGroup: 'Chest',
+    equipment: 'Barbell',
+    description: 'Performed on a decline bench to target the lower chest.',
+  },
+  {
+    id: 'dumbbell-bench-press',
+    name: 'Dumbbell Bench Press',
+    muscleGroup: 'Chest',
+    equipment: 'Dumbbells',
+    description: 'Lie flat, press dumbbells up from chest level with palms facing forward.',
+  },
+  {
+    id: 'dumbbell-flyes',
+    name: 'Dumbbell Flyes',
+    muscleGroup: 'Chest',
+    equipment: 'Dumbbells',
+    description: 'Lie flat, extend arms out to sides with slight bend in elbows, bring dumbbells together above chest.',
+  },
+  {
+    id: 'cable-crossover',
+    name: 'Cable Crossover',
+    muscleGroup: 'Chest',
+    equipment: 'Cable Machine',
+    description: 'Stand between cable towers, bring handles together in front of chest in a hugging motion.',
+  },
+  {
+    id: 'push-ups',
+    name: 'Push-Ups',
+    muscleGroup: 'Chest',
+    equipment: 'Bodyweight',
+    description: 'Classic bodyweight exercise. Hands shoulder-width apart, lower chest to floor and push back up.',
+  },
+  {
+    id: 'chest-dips',
+    name: 'Chest Dips',
+    muscleGroup: 'Chest',
+    equipment: 'Dip Bars',
+    description: 'Lean forward on dip bars, lower body by bending elbows, push back up.',
+  },
+  {
+    id: 'machine-chest-press',
+    name: 'Machine Chest Press',
+    muscleGroup: 'Chest',
+    equipment: 'Machine',
+    description: 'Sit in machine, push handles forward until arms are extended.',
+  },
+  {
+    id: 'pec-deck',
+    name: 'Pec Deck',
+    muscleGroup: 'Chest',
+    equipment: 'Machine',
+    description: 'Sit in machine with arms on pads, bring arms together in front of chest.',
+  },
+
+  // BACK
+  {
+    id: 'deadlift',
+    name: 'Deadlift',
+    muscleGroup: 'Back',
+    equipment: 'Barbell',
+    description: 'Stand with feet hip-width, grip bar, lift by extending hips and knees while keeping back straight.',
+  },
+  {
+    id: 'pull-ups',
+    name: 'Pull-Ups',
+    muscleGroup: 'Back',
+    equipment: 'Pull-Up Bar',
+    description: 'Hang from bar with overhand grip, pull body up until chin clears bar.',
+  },
+  {
+    id: 'chin-ups',
+    name: 'Chin-Ups',
+    muscleGroup: 'Back',
+    equipment: 'Pull-Up Bar',
+    description: 'Hang from bar with underhand grip, pull body up until chin clears bar.',
+  },
+  {
+    id: 'lat-pulldown',
+    name: 'Lat Pulldown',
+    muscleGroup: 'Back',
+    equipment: 'Cable Machine',
+    description: 'Sit at lat pulldown machine, pull bar down to upper chest while squeezing shoulder blades.',
+  },
+  {
+    id: 'barbell-row',
+    name: 'Barbell Row',
+    muscleGroup: 'Back',
+    equipment: 'Barbell',
+    description: 'Bend at hips with flat back, pull barbell to lower chest/upper abdomen.',
+  },
+  {
+    id: 'dumbbell-row',
+    name: 'Dumbbell Row',
+    muscleGroup: 'Back',
+    equipment: 'Dumbbell',
+    description: 'One arm on bench for support, row dumbbell to hip with other arm.',
+  },
+  {
+    id: 'seated-cable-row',
+    name: 'Seated Cable Row',
+    muscleGroup: 'Back',
+    equipment: 'Cable Machine',
+    description: 'Sit at cable row, pull handle to abdomen while keeping back straight.',
+  },
+  {
+    id: 't-bar-row',
+    name: 'T-Bar Row',
+    muscleGroup: 'Back',
+    equipment: 'T-Bar',
+    description: 'Straddle T-bar, bend at hips, row weight to chest.',
+  },
+  {
+    id: 'face-pulls',
+    name: 'Face Pulls',
+    muscleGroup: 'Back',
+    equipment: 'Cable Machine',
+    description: 'Pull rope attachment to face level, separating hands at the end of the movement.',
+  },
+  {
+    id: 'rack-pulls',
+    name: 'Rack Pulls',
+    muscleGroup: 'Back',
+    equipment: 'Barbell',
+    description: 'Partial deadlift from knee height, focusing on the lockout portion.',
+  },
+
+  // SHOULDERS
+  {
+    id: 'overhead-press',
+    name: 'Overhead Press',
+    muscleGroup: 'Shoulders',
+    equipment: 'Barbell',
+    description: 'Stand with barbell at shoulders, press overhead until arms are fully extended.',
+  },
+  {
+    id: 'dumbbell-shoulder-press',
+    name: 'Dumbbell Shoulder Press',
+    muscleGroup: 'Shoulders',
+    equipment: 'Dumbbells',
+    description: 'Seated or standing, press dumbbells from shoulder level to overhead.',
+  },
+  {
+    id: 'arnold-press',
+    name: 'Arnold Press',
+    muscleGroup: 'Shoulders',
+    equipment: 'Dumbbells',
+    description: 'Start with palms facing you, rotate wrists as you press overhead.',
+  },
+  {
+    id: 'lateral-raises',
+    name: 'Lateral Raises',
+    muscleGroup: 'Shoulders',
+    equipment: 'Dumbbells',
+    description: 'Stand with dumbbells at sides, raise arms out to sides until parallel with floor.',
+  },
+  {
+    id: 'front-raises',
+    name: 'Front Raises',
+    muscleGroup: 'Shoulders',
+    equipment: 'Dumbbells',
+    description: 'Stand with dumbbells at thighs, raise arms forward until parallel with floor.',
+  },
+  {
+    id: 'rear-delt-flyes',
+    name: 'Rear Delt Flyes',
+    muscleGroup: 'Shoulders',
+    equipment: 'Dumbbells',
+    description: 'Bend at hips, raise dumbbells out to sides targeting rear deltoids.',
+  },
+  {
+    id: 'upright-rows',
+    name: 'Upright Rows',
+    muscleGroup: 'Shoulders',
+    equipment: 'Barbell',
+    description: 'Stand with barbell, pull up along body to chin level with elbows high.',
+  },
+  {
+    id: 'shrugs',
+    name: 'Shrugs',
+    muscleGroup: 'Shoulders',
+    equipment: 'Dumbbells',
+    description: 'Hold weights at sides, elevate shoulders toward ears.',
+  },
+  {
+    id: 'machine-shoulder-press',
+    name: 'Machine Shoulder Press',
+    muscleGroup: 'Shoulders',
+    equipment: 'Machine',
+    description: 'Sit in machine, press handles overhead.',
+  },
+  {
+    id: 'cable-lateral-raises',
+    name: 'Cable Lateral Raises',
+    muscleGroup: 'Shoulders',
+    equipment: 'Cable Machine',
+    description: 'Stand beside cable machine, raise arm out to side against cable resistance.',
+  },
+
+  // BICEPS
+  {
+    id: 'barbell-curl',
+    name: 'Barbell Curl',
+    muscleGroup: 'Biceps',
+    equipment: 'Barbell',
+    description: 'Stand with barbell, curl weight up by flexing elbows while keeping upper arms stationary.',
+  },
+  {
+    id: 'dumbbell-curl',
+    name: 'Dumbbell Curl',
+    muscleGroup: 'Biceps',
+    equipment: 'Dumbbells',
+    description: 'Stand with dumbbells, curl weights up alternating or simultaneously.',
+  },
+  {
+    id: 'hammer-curl',
+    name: 'Hammer Curl',
+    muscleGroup: 'Biceps',
+    equipment: 'Dumbbells',
+    description: 'Curl with neutral grip (palms facing each other) targeting brachialis.',
+  },
+  {
+    id: 'preacher-curl',
+    name: 'Preacher Curl',
+    muscleGroup: 'Biceps',
+    equipment: 'EZ Bar',
+    description: 'Rest upper arms on preacher bench pad, curl weight up.',
+  },
+  {
+    id: 'incline-dumbbell-curl',
+    name: 'Incline Dumbbell Curl',
+    muscleGroup: 'Biceps',
+    equipment: 'Dumbbells',
+    description: 'Lie on incline bench, curl dumbbells with arms hanging down.',
+  },
+  {
+    id: 'concentration-curl',
+    name: 'Concentration Curl',
+    muscleGroup: 'Biceps',
+    equipment: 'Dumbbell',
+    description: 'Sit with elbow braced against inner thigh, curl dumbbell with focus.',
+  },
+  {
+    id: 'cable-curl',
+    name: 'Cable Curl',
+    muscleGroup: 'Biceps',
+    equipment: 'Cable Machine',
+    description: 'Stand at cable machine, curl bar or rope attachment.',
+  },
+  {
+    id: 'ez-bar-curl',
+    name: 'EZ Bar Curl',
+    muscleGroup: 'Biceps',
+    equipment: 'EZ Bar',
+    description: 'Curl using angled EZ bar grip for wrist comfort.',
+  },
+
+  // TRICEPS
+  {
+    id: 'tricep-pushdown',
+    name: 'Tricep Pushdown',
+    muscleGroup: 'Triceps',
+    equipment: 'Cable Machine',
+    description: 'Stand at cable machine, push bar or rope down by extending elbows.',
+  },
+  {
+    id: 'skull-crushers',
+    name: 'Skull Crushers',
+    muscleGroup: 'Triceps',
+    equipment: 'EZ Bar',
+    description: 'Lie on bench, lower bar to forehead by bending elbows, extend back up.',
+  },
+  {
+    id: 'close-grip-bench-press',
+    name: 'Close Grip Bench Press',
+    muscleGroup: 'Triceps',
+    equipment: 'Barbell',
+    description: 'Bench press with hands closer together to emphasize triceps.',
+  },
+  {
+    id: 'overhead-tricep-extension',
+    name: 'Overhead Tricep Extension',
+    muscleGroup: 'Triceps',
+    equipment: 'Dumbbell',
+    description: 'Hold dumbbell overhead with both hands, lower behind head and extend.',
+  },
+  {
+    id: 'tricep-dips',
+    name: 'Tricep Dips',
+    muscleGroup: 'Triceps',
+    equipment: 'Dip Bars',
+    description: 'Keep body upright on dip bars, lower and press up focusing on triceps.',
+  },
+  {
+    id: 'tricep-kickbacks',
+    name: 'Tricep Kickbacks',
+    muscleGroup: 'Triceps',
+    equipment: 'Dumbbell',
+    description: 'Bend at hips, extend arm backward by straightening elbow.',
+  },
+  {
+    id: 'diamond-push-ups',
+    name: 'Diamond Push-Ups',
+    muscleGroup: 'Triceps',
+    equipment: 'Bodyweight',
+    description: 'Push-ups with hands together forming a diamond shape.',
+  },
+  {
+    id: 'rope-pushdown',
+    name: 'Rope Pushdown',
+    muscleGroup: 'Triceps',
+    equipment: 'Cable Machine',
+    description: 'Push rope attachment down, spreading ends apart at bottom.',
+  },
+
+  // LEGS
+  {
+    id: 'squat',
+    name: 'Squat',
+    muscleGroup: 'Legs',
+    equipment: 'Barbell',
+    description: 'Bar on upper back, squat down until thighs parallel to floor, stand back up.',
+  },
+  {
+    id: 'front-squat',
+    name: 'Front Squat',
+    muscleGroup: 'Legs',
+    equipment: 'Barbell',
+    description: 'Bar rests on front of shoulders, squat down keeping torso upright.',
+  },
+  {
+    id: 'leg-press',
+    name: 'Leg Press',
+    muscleGroup: 'Legs',
+    equipment: 'Machine',
+    description: 'Sit in leg press machine, push platform away by extending legs.',
+  },
+  {
+    id: 'lunges',
+    name: 'Lunges',
+    muscleGroup: 'Legs',
+    equipment: 'Dumbbells',
+    description: 'Step forward, lower back knee toward ground, push back to start.',
+  },
+  {
+    id: 'bulgarian-split-squat',
+    name: 'Bulgarian Split Squat',
+    muscleGroup: 'Legs',
+    equipment: 'Dumbbells',
+    description: 'Rear foot elevated on bench, squat down on front leg.',
+  },
+  {
+    id: 'leg-extension',
+    name: 'Leg Extension',
+    muscleGroup: 'Legs',
+    equipment: 'Machine',
+    description: 'Sit in machine, extend legs to straight position.',
+  },
+  {
+    id: 'leg-curl',
+    name: 'Leg Curl',
+    muscleGroup: 'Legs',
+    equipment: 'Machine',
+    description: 'Lie face down, curl weight by bending knees.',
+  },
+  {
+    id: 'romanian-deadlift',
+    name: 'Romanian Deadlift',
+    muscleGroup: 'Legs',
+    equipment: 'Barbell',
+    description: 'Hinge at hips with slight knee bend, lower bar along legs.',
+  },
+  {
+    id: 'calf-raises',
+    name: 'Calf Raises',
+    muscleGroup: 'Legs',
+    equipment: 'Machine',
+    description: 'Rise up on toes, lower back down for calf development.',
+  },
+  {
+    id: 'hack-squat',
+    name: 'Hack Squat',
+    muscleGroup: 'Legs',
+    equipment: 'Machine',
+    description: 'Stand in hack squat machine, squat down and press up.',
+  },
+  {
+    id: 'goblet-squat',
+    name: 'Goblet Squat',
+    muscleGroup: 'Legs',
+    equipment: 'Dumbbell',
+    description: 'Hold dumbbell at chest, squat down keeping torso upright.',
+  },
+  {
+    id: 'step-ups',
+    name: 'Step-Ups',
+    muscleGroup: 'Legs',
+    equipment: 'Bench',
+    description: 'Step up onto bench, drive through heel, step back down.',
+  },
+
+  // GLUTES
+  {
+    id: 'hip-thrust',
+    name: 'Hip Thrust',
+    muscleGroup: 'Glutes',
+    equipment: 'Barbell',
+    description: 'Upper back on bench, barbell on hips, thrust hips upward.',
+  },
+  {
+    id: 'glute-bridge',
+    name: 'Glute Bridge',
+    muscleGroup: 'Glutes',
+    equipment: 'Bodyweight',
+    description: 'Lie on back, feet flat, lift hips by squeezing glutes.',
+  },
+  {
+    id: 'cable-kickbacks',
+    name: 'Cable Kickbacks',
+    muscleGroup: 'Glutes',
+    equipment: 'Cable Machine',
+    description: 'Attach ankle strap, kick leg backward against cable resistance.',
+  },
+  {
+    id: 'sumo-deadlift',
+    name: 'Sumo Deadlift',
+    muscleGroup: 'Glutes',
+    equipment: 'Barbell',
+    description: 'Wide stance deadlift targeting glutes and inner thighs.',
+  },
+  {
+    id: 'good-mornings',
+    name: 'Good Mornings',
+    muscleGroup: 'Glutes',
+    equipment: 'Barbell',
+    description: 'Bar on back, hinge at hips keeping back straight.',
+  },
+
+  // CORE
+  {
+    id: 'plank',
+    name: 'Plank',
+    muscleGroup: 'Core',
+    equipment: 'Bodyweight',
+    description: 'Hold push-up position on forearms, keep body in straight line.',
+  },
+  {
+    id: 'crunches',
+    name: 'Crunches',
+    muscleGroup: 'Core',
+    equipment: 'Bodyweight',
+    description: 'Lie on back, curl shoulders off floor by contracting abs.',
+  },
+  {
+    id: 'hanging-leg-raises',
+    name: 'Hanging Leg Raises',
+    muscleGroup: 'Core',
+    equipment: 'Pull-Up Bar',
+    description: 'Hang from bar, raise legs to parallel or higher.',
+  },
+  {
+    id: 'russian-twists',
+    name: 'Russian Twists',
+    muscleGroup: 'Core',
+    equipment: 'Weight Plate',
+    description: 'Sit with torso angled back, rotate side to side with weight.',
+  },
+  {
+    id: 'cable-woodchops',
+    name: 'Cable Woodchops',
+    muscleGroup: 'Core',
+    equipment: 'Cable Machine',
+    description: 'Rotate torso pulling cable diagonally across body.',
+  },
+  {
+    id: 'ab-wheel-rollout',
+    name: 'Ab Wheel Rollout',
+    muscleGroup: 'Core',
+    equipment: 'Ab Wheel',
+    description: 'Kneel, roll wheel forward extending body, roll back.',
+  },
+  {
+    id: 'dead-bug',
+    name: 'Dead Bug',
+    muscleGroup: 'Core',
+    equipment: 'Bodyweight',
+    description: 'Lie on back, extend opposite arm and leg while maintaining flat back.',
+  },
+  {
+    id: 'mountain-climbers',
+    name: 'Mountain Climbers',
+    muscleGroup: 'Core',
+    equipment: 'Bodyweight',
+    description: 'In push-up position, alternate driving knees toward chest.',
+  },
+  {
+    id: 'bicycle-crunches',
+    name: 'Bicycle Crunches',
+    muscleGroup: 'Core',
+    equipment: 'Bodyweight',
+    description: 'Lie on back, alternate elbow to opposite knee in cycling motion.',
+  },
+  {
+    id: 'side-plank',
+    name: 'Side Plank',
+    muscleGroup: 'Core',
+    equipment: 'Bodyweight',
+    description: 'Support body on one forearm, keep body in straight line from side.',
+  },
+
+  // FULL BODY
+  {
+    id: 'clean-and-press',
+    name: 'Clean and Press',
+    muscleGroup: 'Full Body',
+    equipment: 'Barbell',
+    description: 'Clean bar to shoulders, then press overhead in one fluid motion.',
+  },
+  {
+    id: 'thrusters',
+    name: 'Thrusters',
+    muscleGroup: 'Full Body',
+    equipment: 'Barbell',
+    description: 'Front squat into overhead press in one continuous movement.',
+  },
+  {
+    id: 'burpees',
+    name: 'Burpees',
+    muscleGroup: 'Full Body',
+    equipment: 'Bodyweight',
+    description: 'Squat, jump feet back to plank, push-up, jump feet forward, jump up.',
+  },
+  {
+    id: 'kettlebell-swings',
+    name: 'Kettlebell Swings',
+    muscleGroup: 'Full Body',
+    equipment: 'Kettlebell',
+    description: 'Hinge at hips, swing kettlebell between legs and up to shoulder height.',
+  },
+  {
+    id: 'power-clean',
+    name: 'Power Clean',
+    muscleGroup: 'Full Body',
+    equipment: 'Barbell',
+    description: 'Explosive lift from floor to rack position on shoulders.',
+  },
+  {
+    id: 'snatch',
+    name: 'Snatch',
+    muscleGroup: 'Full Body',
+    equipment: 'Barbell',
+    description: 'Explosive lift from floor to overhead in one movement.',
+  },
+  {
+    id: 'farmers-walk',
+    name: 'Farmers Walk',
+    muscleGroup: 'Full Body',
+    equipment: 'Dumbbells',
+    description: 'Hold heavy weights at sides, walk for distance or time.',
+  },
+  {
+    id: 'battle-ropes',
+    name: 'Battle Ropes',
+    muscleGroup: 'Full Body',
+    equipment: 'Battle Ropes',
+    description: 'Create waves with heavy ropes using various arm movements.',
+  },
+]
+
+export function getExercisesByMuscleGroup(muscleGroup: MuscleGroup): Exercise[] {
+  return exercises.filter(e => e.muscleGroup === muscleGroup)
+}
+
+export function getExerciseById(id: string): Exercise | undefined {
+  return exercises.find(e => e.id === id)
+}

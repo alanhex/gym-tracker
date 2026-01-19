@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Workout {
+  id             Int              @id @default(autoincrement())
+  date           DateTime         @default(now())
+  type           String           @default("strength") // "strength", "cycling", or "running"
+  exercises      Exercise[]
+  cyclingSession CyclingSession?
+  runningSession RunningSession?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model CyclingSession {
+  id           Int      @id @default(autoincrement())
+  workoutId    Int      @unique
+  workout      Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  duration     Int      // duration in minutes
+  distance     Float?   // distance in km
+  avgPower     Int?     // average power in watts
+  maxPower     Int?     // max power in watts
+  avgHeartRate Int?     // average heart rate bpm
+  maxHeartRate Int?     // max heart rate bpm
+  avgCadence   Int?     // average cadence rpm
+  calories     Int?     // calories burned
+  title        String?  // workout name (e.g., "Zwift - Road to Ruins")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model RunningSession {
+  id           Int      @id @default(autoincrement())
+  workoutId    Int      @unique
+  workout      Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  duration     Int      // duration in minutes
+  distance     Float?   // distance in km
+  avgPace      Int?     // average pace in seconds per km
+  avgHeartRate Int?     // average heart rate bpm
+  maxHeartRate Int?     // max heart rate bpm
+  avgCadence   Int?     // average cadence spm (steps per minute)
+  calories     Int?     // calories burned
+  elevationGain Int?    // elevation gain in meters
+  title        String?  // run name (e.g., "Morning Run")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Exercise {
+  id        Int      @id @default(autoincrement())
+  workoutId Int
+  workout   Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  name      String
+  sets      Set[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Set {
+  id         Int      @id @default(autoincrement())
+  exerciseId Int
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+  reps       Int
+  weight     Float
+  rpe        Int?     // optional rate of perceived exertion 1-10
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
