@@ -13,7 +13,7 @@ const navItems = [
   { href: '/progress', label: 'Progress', icon: TrendingUp },
 ]
 
-const authRoutes = ['/login', '/signup']
+const authRoutes = ['/login', '/signup', '/forgot-password', '/reset-password']
 
 export function BottomNav() {
   const pathname = usePathname()
