@@ -1,8 +1,8 @@
 import { auth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 
-const publicRoutes = ['/login', '/signup', '/learn']
-const authRoutes = ['/login', '/signup']
+const publicRoutes = ['/login', '/signup', '/learn', '/forgot-password', '/reset-password']
+const authRoutes = ['/login', '/signup', '/forgot-password', '/reset-password']
 
 // Next.js 16 uses proxy.ts instead of middleware.ts
 const proxy = auth((req) => {

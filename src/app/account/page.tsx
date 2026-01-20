@@ -272,9 +272,9 @@ export default function AccountPage() {
         {!showDeleteConfirm ? (
           <Button
             type="button"
-            variant="outline"
+            variant="ghost"
             onClick={() => setShowDeleteConfirm(true)}
-            className="border-red-300 text-red-600 hover:bg-red-50 dark:border-red-700 dark:text-red-400 dark:hover:bg-red-900/20"
+            className="border border-red-300 text-red-600 hover:bg-red-50 dark:border-red-700 dark:text-red-400 dark:hover:bg-red-900/20"
           >
             Delete Account
           </Button>
@@ -290,7 +290,7 @@ export default function AccountPage() {
             </Button>
             <Button
               type="button"
-              variant="outline"
+              variant="secondary"
               onClick={() => setShowDeleteConfirm(false)}
             >
               Cancel

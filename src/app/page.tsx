@@ -8,6 +8,9 @@ import { StatCard } from '@/components/ui/Card'
 import { CardSkeleton, WorkoutCardSkeleton } from '@/components/ui/Skeleton'
 import { WeeklyActivity } from '@/components/workout/WeeklyActivity'
 import { WorkoutCard } from '@/components/workout/WorkoutCard'
+import { WeeklyGoal } from '@/components/home/WeeklyGoal'
+import { Achievements } from '@/components/home/Achievements'
+import { EmptyState } from '@/components/home/EmptyState'
 
 interface Workout {
   id: number
@@ -131,6 +134,20 @@ export default function Home() {
     )
   }
 
+  // Show empty state for new users
+  if (totalWorkouts === 0) {
+    return (
+      <div className="min-h-screen p-6">
+        <div className="max-w-lg mx-auto space-y-6">
+          <header className="mb-2">
+            <p className="text-gray-500 dark:text-gray-400 text-sm">{getGreeting()}</p>
+          </header>
+          <EmptyState userName={firstName} />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-lg mx-auto space-y-6">
@@ -140,6 +157,8 @@ export default function Home() {
             {firstName ? `Welcome back, ${firstName}` : 'Dashboard'}
           </h1>
         </header>
+
+        <WeeklyGoal currentCount={thisWeekCount} />
 
         <WeeklyActivity workoutDates={workouts.map(w => w.date)} />
 
@@ -166,6 +185,13 @@ export default function Home() {
           />
         </div>
 
+        <Achievements
+          totalWorkouts={totalWorkouts}
+          streak={streak}
+          uniqueExercises={uniqueExercises}
+          thisWeekCount={thisWeekCount}
+        />
+
         <section>
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Recent</h2>
@@ -179,30 +205,19 @@ export default function Home() {
             )}
           </div>
 
-          {recentWorkouts.length === 0 ? (
-            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 text-center shadow-sm">
-              <p className="text-gray-500 dark:text-gray-400">
-                No workouts yet.{' '}
-                <Link href="/add" className="text-gray-900 dark:text-white font-medium hover:underline">
-                  Add your first
-                </Link>
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {recentWorkouts.map(workout => (
-                <WorkoutCard
-                  key={workout.id}
-                  id={workout.id}
-                  date={workout.date}
-                  type={workout.type || 'strength'}
-                  exerciseCount={workout.exercises?.length}
-                  duration={workout.cyclingSession?.duration || workout.runningSession?.duration}
-                  title={workout.cyclingSession?.title || workout.runningSession?.title}
-                />
-              ))}
-            </div>
-          )}
+          <div className="space-y-3">
+            {recentWorkouts.map(workout => (
+              <WorkoutCard
+                key={workout.id}
+                id={workout.id}
+                date={workout.date}
+                type={workout.type || 'strength'}
+                exerciseCount={workout.exercises?.length}
+                duration={workout.cyclingSession?.duration || workout.runningSession?.duration}
+                title={workout.cyclingSession?.title || workout.runningSession?.title}
+              />
+            ))}
+          </div>
         </section>
       </div>
     </div>
