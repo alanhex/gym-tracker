@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { Dumbbell, Calendar, Flame, Trophy } from 'lucide-react'
 import { StatCard } from '@/components/ui/Card'
 import { CardSkeleton, WorkoutCardSkeleton } from '@/components/ui/Skeleton'
@@ -31,8 +32,18 @@ interface Workout {
 }
 
 export default function Home() {
+  const { data: session } = useSession()
   const [workouts, setWorkouts] = useState<Workout[]>([])
   const [loading, setLoading] = useState(true)
+
+  const getGreeting = () => {
+    const hour = new Date().getHours()
+    if (hour < 12) return 'Good morning'
+    if (hour < 18) return 'Good afternoon'
+    return 'Good evening'
+  }
+
+  const firstName = session?.user?.name?.split(' ')[0]
 
   useEffect(() => {
     fetch('/api/workouts')
@@ -99,8 +110,9 @@ export default function Home() {
     return (
       <div className="min-h-screen p-6">
         <div className="max-w-lg mx-auto space-y-6">
-          <div className="mb-8">
-            <div className="h-8 w-32 bg-gray-200 dark:bg-gray-800 rounded animate-pulse" />
+          <div className="mb-2">
+            <div className="h-4 w-24 bg-gray-200 dark:bg-gray-800 rounded animate-pulse mb-1" />
+            <div className="h-8 w-48 bg-gray-200 dark:bg-gray-800 rounded animate-pulse" />
           </div>
           <div className="h-24 bg-gray-200 dark:bg-gray-800 rounded-xl animate-pulse" />
           <div className="grid grid-cols-2 gap-4">
@@ -123,7 +135,10 @@ export default function Home() {
     <div className="min-h-screen p-6">
       <div className="max-w-lg mx-auto space-y-6">
         <header className="mb-2">
-          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">{getGreeting()}</p>
+          <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+            {firstName ? `Welcome back, ${firstName}` : 'Dashboard'}
+          </h1>
         </header>
 
         <WeeklyActivity workoutDates={workouts.map(w => w.date)} />

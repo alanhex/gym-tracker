@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
-import { User, LogOut } from 'lucide-react'
+import { Settings, LogOut } from 'lucide-react'
+import Link from 'next/link'
 
 export function UserMenu() {
   const { data: session } = useSession()
@@ -59,6 +60,14 @@ export function UserMenu() {
               {session.user.email}
             </p>
           </div>
+          <Link
+            href="/account"
+            onClick={() => setIsOpen(false)}
+            className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          >
+            <Settings className="w-4 h-4" />
+            Account Settings
+          </Link>
           <button
             onClick={() => signOut({ callbackUrl: '/login' })}
             className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
