@@ -2,8 +2,11 @@ import Link from 'next/link'
 import ProgressChart from './ProgressChart'
 import { prisma } from '@/lib/prisma'
 import { Card } from '@/components/ui/Card'
+import { auth } from '@/lib/auth'
 
 export default async function Progress() {
+  const session = await auth()
+
   let workouts: Array<{
     id: number
     date: Date
@@ -21,6 +24,7 @@ export default async function Progress() {
     workouts = await prisma.workout.findMany({
       where: {
         type: 'strength',
+        userId: session?.user?.id,
       },
       include: {
         exercises: {
