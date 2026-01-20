@@ -13,8 +13,15 @@ const navItems = [
   { href: '/progress', label: 'Progress', icon: TrendingUp },
 ]
 
+const authRoutes = ['/login', '/signup']
+
 export function BottomNav() {
   const pathname = usePathname()
+
+  // Hide nav on auth pages
+  if (authRoutes.includes(pathname)) {
+    return null
+  }
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 safe-bottom">

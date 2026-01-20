@@ -4,6 +4,8 @@ import "./globals.css";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { ToastProvider } from "@/components/ui/Toast";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { SessionProvider } from "@/components/auth/SessionProvider";
+import { UserMenu } from "@/components/auth/UserMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,13 +32,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#0a0a0a] min-h-screen pb-20`}
       >
-        <ToastProvider>
-          <div className="fixed top-4 right-4 z-50">
-            <ThemeToggle />
-          </div>
-          {children}
-          <BottomNav />
-        </ToastProvider>
+        <SessionProvider>
+          <ToastProvider>
+            <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+              <ThemeToggle />
+              <UserMenu />
+            </div>
+            {children}
+            <BottomNav />
+          </ToastProvider>
+        </SessionProvider>
       </body>
     </html>
   );

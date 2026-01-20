@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { auth } from '@/lib/auth'
 import { z } from 'zod'
 
 const updateStrengthSchema = z.object({
@@ -10,7 +11,7 @@ const updateStrengthSchema = z.object({
     sets: z.array(z.object({
       reps: z.number().int().positive(),
       weight: z.number().min(0),
-      rpe: z.number().int().min(1).max(10).optional(),
+      rpe: z.number().int().min(1).max(10).nullish(),
     })),
   })).optional(),
 })
@@ -58,6 +59,11 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth()
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const { id } = await params
     const workout = await prisma.workout.findUnique({
       where: { id: parseInt(id) },
@@ -76,6 +82,10 @@ export async function GET(
       return NextResponse.json({ error: 'Workout not found' }, { status: 404 })
     }
 
+    if (workout.userId !== session.user.id) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     return NextResponse.json(workout)
   } catch {
     return NextResponse.json({ error: 'Failed to fetch workout' }, { status: 500 })
@@ -87,8 +97,27 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth()
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const { id } = await params
     const workoutId = parseInt(id)
+
+    // Verify ownership
+    const existingWorkout = await prisma.workout.findUnique({
+      where: { id: workoutId },
+    })
+
+    if (!existingWorkout) {
+      return NextResponse.json({ error: 'Workout not found' }, { status: 404 })
+    }
+
+    if (existingWorkout.userId !== session.user.id) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     const body = await request.json()
     const validatedData = updateWorkoutSchema.parse(body)
 
@@ -186,9 +215,29 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const session = await auth()
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const { id } = await params
+    const workoutId = parseInt(id)
+
+    // Verify ownership
+    const existingWorkout = await prisma.workout.findUnique({
+      where: { id: workoutId },
+    })
+
+    if (!existingWorkout) {
+      return NextResponse.json({ error: 'Workout not found' }, { status: 404 })
+    }
+
+    if (existingWorkout.userId !== session.user.id) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     await prisma.workout.delete({
-      where: { id: parseInt(id) },
+      where: { id: workoutId },
     })
 
     return NextResponse.json({ message: 'Workout deleted' })

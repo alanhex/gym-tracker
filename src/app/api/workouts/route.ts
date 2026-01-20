@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { auth } from '@/lib/auth'
 import { z } from 'zod'
 
 const strengthWorkoutSchema = z.object({
@@ -55,7 +56,13 @@ const createWorkoutSchema = z.discriminatedUnion('type', [
 
 export async function GET() {
   try {
+    const session = await auth()
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const workouts = await prisma.workout.findMany({
+      where: { userId: session.user.id },
       include: {
         exercises: {
           include: {
@@ -75,6 +82,11 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await auth()
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const body = await request.json()
 
     // Handle legacy requests without type field (assume strength)
@@ -87,6 +99,7 @@ export async function POST(request: NextRequest) {
     if (validatedData.type === 'strength') {
       const workout = await prisma.workout.create({
         data: {
+          userId: session.user.id,
           date: new Date(validatedData.date),
           type: 'strength',
           exercises: {
@@ -110,6 +123,7 @@ export async function POST(request: NextRequest) {
     } else if (validatedData.type === 'cycling') {
       const workout = await prisma.workout.create({
         data: {
+          userId: session.user.id,
           date: new Date(validatedData.date),
           type: 'cycling',
           cyclingSession: {
@@ -134,6 +148,7 @@ export async function POST(request: NextRequest) {
     } else {
       const workout = await prisma.workout.create({
         data: {
+          userId: session.user.id,
           date: new Date(validatedData.date),
           type: 'running',
           runningSession: {
